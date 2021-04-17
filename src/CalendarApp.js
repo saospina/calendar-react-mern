@@ -5,7 +5,7 @@ import { AppRouter } from './routers/AppRouter';
 
 export const CalendarApp = () => {
     return (
-        <div className="container">
+        <div>
             <AppRouter />
         </div>
     )
