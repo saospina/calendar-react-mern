@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 
 import { messages } from "../../helpers/calendar.config";
 import { Navbar } from "../ui/Navbar";
 import { CalendarEvent } from "./CalendarEvent";
+import { CalendarModal } from "./CalendarModal";
+
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment); // or globalizeLocalizer
 
@@ -22,9 +24,11 @@ const events = [
   },
 ];
 
+//Component for big calendar
 export const CalendarScreen = () => {
 
-  const [lastView, setLastView] = useState(localStorage.getItem('lastView' || 'month'))
+  const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
+  console.log(lastView);
 
   const onDoubleClick = (e) => {
     console.log(e);
@@ -73,6 +77,7 @@ export const CalendarScreen = () => {
           event: CalendarEvent,
         }}
       />
+      <CalendarModal />
     </div>
   );
 };
