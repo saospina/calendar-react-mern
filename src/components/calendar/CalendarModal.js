@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
 import moment from 'moment';
@@ -8,12 +8,49 @@ import { customStyles } from '../../helpers/customStyles';
 import './modal.css'
 
 Modal.setAppElement('#root');
-const startDate = moment().minutes(0).seconds(0).add(1, 'hours');
+const now = moment().minutes(0).seconds(0).add(1, 'hours');
+const nowPlus1 = now.clone().add(1, 'hours');
+const initialState = {
+    title: 'Event',
+    notes: '',
+    start: now.toDate(),
+    end: nowPlus1.toDate()
+}
 
 export const CalendarModal = () => {
 
+    const [dateStart, setDateStart] = useState(now.toDate());
+    const [dateEnd, setDateEnd] = useState(nowPlus1.toDate());
+    const [formValues, setFormValues] = useState({ initialState })
+
+    const { notes, title } = formValues;
+
+    const handleInputChange = ({ target }) => {
+        setFormValues({
+            ...formValues,
+            [target.name]: target.value
+        })
+    };
+
+    const handleSubmitForm = (e) => {
+        e.preventDefault();
+        console.log(formValues);
+    };
+
     const handleStartDateChange = (e) => {
-        console.log(e);
+        setDateStart(e);
+        setFormValues({
+            ...formValues,
+            start: e
+        })
+    };
+
+    const handleEndDateChange = (e) => {
+        setDateEnd(e);
+        setFormValues({
+            ...formValues,
+            start: e
+        })
     };
 
     const closeModal = () => {
@@ -32,20 +69,28 @@ export const CalendarModal = () => {
         >
             <h1 className="text-center text-primary"> New event </h1>
             <hr />
-            <form className="container">
+            <form
+                className="container"
+                onSubmit={handleSubmitForm}
+            >
 
                 <div className="form-group">
                     <label>Start date and time *</label>
                     <DateTimePicker
                         onChange={handleStartDateChange}
-                        value={startDate.toDate()}
+                        value={dateStart}
                         className="form-control"
                     />
                 </div>
 
                 <div className="form-group">
                     <label>End date and time *</label>
-                    <input className="form-control" placeholder="End date" />
+                    <DateTimePicker
+                        onChange={handleEndDateChange}
+                        value={dateEnd}
+                        minDate={dateStart}
+                        className="form-control"
+                    />
                 </div>
 
                 <hr />
@@ -57,6 +102,8 @@ export const CalendarModal = () => {
                         placeholder="Event title"
                         name="title"
                         autoComplete="off"
+                        value={title}
+                        onChange={handleInputChange}
                     />
 
                     {/* <small id="emailHelp" className="form-text text-muted">Short description</small> */}
@@ -70,6 +117,8 @@ export const CalendarModal = () => {
                         placeholder="Notes"
                         rows="5"
                         name="notes"
+                        value={notes}
+                        onChange={handleInputChange}
                     ></textarea>
                     <small id="emailHelp" className="form-text text-muted">Aditional information</small>
                 </div>
