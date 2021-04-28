@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 
 import { customStyles } from '../../helpers/customStyles';
+import { uiCloseModal } from '../../actions/uiActions';
 
 import './modal.css'
 
@@ -18,14 +20,19 @@ const initialState = {
     end: nowPlus1.toDate()
 }
 
+// Calendar Modal component
 export const CalendarModal = () => {
 
     const [dateStart, setDateStart] = useState(now.toDate());
     const [dateEnd, setDateEnd] = useState(nowPlus1.toDate());
-    const [formValues, setFormValues] = useState({ initialState });
-    const [titleValid, setTitleValid] = useState(true);
 
+    const [formValues, setFormValues] = useState({ initialState });
     const { notes, title, start, end } = formValues;
+
+    const [titleValid, setTitleValid] = useState(true);
+    const { modalOpen } = useSelector(state => state.ui);
+    const dispatch = useDispatch();
+
 
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -69,12 +76,12 @@ export const CalendarModal = () => {
     };
 
     const closeModal = () => {
-        console.log('Closing modal...');
+        dispatch(uiCloseModal())
     };
 
     return (
         <Modal
-            isOpen={true}
+            isOpen={modalOpen}
             //onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
             closeTimeoutMS={200}
