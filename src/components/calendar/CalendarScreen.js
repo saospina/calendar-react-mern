@@ -8,8 +8,11 @@ import { Navbar } from "../ui/Navbar";
 import { CalendarEvent } from "./CalendarEvent";
 import { CalendarModal } from "./CalendarModal";
 
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import { uiOpenModal } from "../../actions/uiActions";
+import { eventSetActive } from "../../actions/eventActions";
+import { AddNewFab } from "../ui/AddNewFab";
+
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment); // or globalizeLocalizer
 
@@ -37,7 +40,8 @@ export const CalendarScreen = () => {
   };
 
   const onSelectEvent = (e) => {
-    console.log(e);
+    dispatch(eventSetActive(e));
+    dispatch(uiOpenModal())
   };
 
   const onViewChange = (e) => {
@@ -80,6 +84,7 @@ export const CalendarScreen = () => {
         }}
       />
       <CalendarModal />
+      <AddNewFab />
     </div>
   );
 };
