@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 import { customStyles } from '../../helpers/customStyles';
 import { uiCloseModal } from '../../actions/uiActions';
-import { eventAddNew, eventClearActiveEvent } from '../../actions/eventActions';
+import { eventAddNew, eventClearActiveEvent, eventUpdated } from '../../actions/eventActions';
 
 import './modal.css'
 
@@ -41,7 +41,7 @@ export const CalendarModal = () => {
         if (activeEvent) {
             setFormValues(activeEvent)
         }
-        
+
     }, [activeEvent])
 
 
@@ -67,14 +67,20 @@ export const CalendarModal = () => {
             return setTitleValid(false);
         };
 
-        dispatch(eventAddNew({
-            ...formValues,
-            id: new Date().getTime(),
-            user: {
-                _id: '123',
-                name: 'andre'
-            }
-        }));
+        if (activeEvent) {
+            dispatch(eventUpdated(formValues))
+        } else {
+
+            dispatch(eventAddNew({
+                ...formValues,
+                id: new Date().getTime(),
+                user: {
+                    _id: '123',
+                    name: 'andre'
+                }
+            }));
+        }
+
         setTitleValid(true);
         closeModal();
 
