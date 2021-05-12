@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-import { checkingFinish, login } from "../actions/authActions";
+import { checkingFinish, login, logout } from "../actions/authActions";
 import { authLoginService, authRegisterService, getToken } from "../services/authAPI";
 
 
@@ -36,15 +36,19 @@ export const startRegister = (name, email, password) => async (dispatch) => {
 export const startChecking = () => async (dispatch) => {
 
     const response = await getToken();
-    const { isAuthenticated, token, uid, name, msg } = response;
+    const { isAuthenticated, token, uid, name } = response;
 
     if (isAuthenticated) {
         localStorage.setItem('token', token);
         localStorage.setItem('token-init-date', new Date().getTime());
         dispatch(login({ uid, name }));
     } else {
-        Swal.fire('Error', msg, "error")
         dispatch(checkingFinish())
     }
 
+};
+
+export const startLogout = () => async (dispatch) => {
+    localStorage.clear();
+    dispatch(logout());
 };

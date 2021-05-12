@@ -7,5 +7,10 @@ export const login = (payload) => ({
 
 export const checkingFinish = () => ({
     type: types.authFinish
+});
+
+export const logout = () => ({
+    type: types.authLogout
 })
+
 

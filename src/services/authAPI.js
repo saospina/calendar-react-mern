@@ -29,7 +29,7 @@ export const authRegisterService = async (payload) => {
 
 export const getToken = async () => {
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || '';
     const url = getUrl('/auth/renew');
     const response = await fetch(url, {
         method: 'GET',
