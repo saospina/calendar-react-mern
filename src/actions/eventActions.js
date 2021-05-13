@@ -22,7 +22,13 @@ export const eventUpdated = (payload) => ({
 
 export const eventDeleted = () => ({
     type: types.eventDeleted
+});
+
+export const eventLoaded = (payload) => ({
+    type: types.eventLoaded,
+    payload
 })
+
 
 
 
