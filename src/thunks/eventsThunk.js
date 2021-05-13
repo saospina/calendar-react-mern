@@ -1,5 +1,7 @@
-import { eventAddNew, eventLoaded } from "../actions/eventActions";
+import { eventAddNew, eventLoaded, eventUpdated } from "../actions/eventActions";
 import { fetchWithToken } from "../services/eventsAPI";
+import { transformEvents } from '../helpers/transformEvents';
+import Swal from "sweetalert2";
 
 export const eventStartAddNew = (event) => {
     return async (dispatch, getState) => {
@@ -24,13 +26,33 @@ export const eventStartAddNew = (event) => {
         }
     }
 };
+
 export const eventStartLoading = () => async (dispatch) => {
 
     try {
-        const response = await fetchWithToken('events', 'GET');
+        const response = await fetchWithToken('events');
         const { events } = response;
-        console.log(events);
-        //dispatch(eventLoaded(events));
+        const transformedEvents = transformEvents(events);
+        dispatch(eventLoaded(transformedEvents));
+    } catch (error) {
+        console.log(error);
+    }
+
+
+};
+export const eventStartUpdating = (event) => async (dispatch) => {
+
+    try {
+
+        const response = await fetchWithToken(`events/${event.id}`, event, 'PUT');
+        const { isUpdated, msg } = response;
+
+        if (isUpdated) {  
+            dispatch(eventUpdated(event));
+        } else {
+            Swal.fire('Error', msg, 'error')
+        }
+
     } catch (error) {
         console.log(error);
     }

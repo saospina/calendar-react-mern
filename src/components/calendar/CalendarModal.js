@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 
 import { customStyles } from '../../helpers/customStyles';
 import { uiCloseModal } from '../../actions/uiActions';
-import { eventClearActiveEvent, eventUpdated } from '../../actions/eventActions';
+import { eventClearActiveEvent } from '../../actions/eventActions';
 
 import './modal.css'
-import { eventStartAddNew } from '../../thunks/eventsThunk';
+import { eventStartAddNew, eventStartUpdating } from '../../thunks/eventsThunk';
 
 Modal.setAppElement('#root');
 
@@ -71,7 +71,7 @@ export const CalendarModal = () => {
         };
 
         if (activeEvent) {
-            dispatch(eventUpdated(formValues))
+            dispatch(eventStartUpdating(formValues))
         } else {
 
             dispatch(eventStartAddNew(formValues ));
