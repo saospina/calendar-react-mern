@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/calendar-react-mern/static/css/main.81fdaa6e.chunk.css",
-    "main.js": "/calendar-react-mern/static/js/main.b54c1b40.chunk.js",
-    "main.js.map": "/calendar-react-mern/static/js/main.b54c1b40.chunk.js.map",
+    "main.js": "/calendar-react-mern/static/js/main.b479de19.chunk.js",
+    "main.js.map": "/calendar-react-mern/static/js/main.b479de19.chunk.js.map",
     "runtime-main.js": "/calendar-react-mern/static/js/runtime-main.5ce4194d.js",
     "runtime-main.js.map": "/calendar-react-mern/static/js/runtime-main.5ce4194d.js.map",
     "static/css/2.b71957ff.chunk.css": "/calendar-react-mern/static/css/2.b71957ff.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.b71957ff.chunk.css",
     "static/js/2.48b9c1cc.chunk.js",
     "static/css/main.81fdaa6e.chunk.css",
-    "static/js/main.b54c1b40.chunk.js"
+    "static/js/main.b479de19.chunk.js"
   ]
 }
