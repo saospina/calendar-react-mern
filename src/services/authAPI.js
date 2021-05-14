@@ -3,7 +3,7 @@
 
 export const authLoginService = async (payload) => {
 
-    const url = getUrl('/auth');
+    const url = getUrl('auth');
     const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -15,7 +15,6 @@ export const authLoginService = async (payload) => {
 
 export const authRegisterService = async (payload) => {
 
-    console.log(payload, 'en el service');
 
     const url = getUrl('/auth/register');
     const response = await fetch(url, {
@@ -35,7 +34,7 @@ export const getToken = async () => {
         method: 'GET',
         headers: { 'x-token': token }
     });
-    const data = await response.text();
+    const data = await response.json();
     return data;
 };
 
