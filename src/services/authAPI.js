@@ -33,7 +33,11 @@ export const getToken = async () => {
     const url = getUrl('/auth/renew');
     const response = await fetch(url, {
         method: 'GET',
-        headers: { 'x-token': token }
+        headers: {
+            'x-token': token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
     });
     const data = await response.json();
     return data;
