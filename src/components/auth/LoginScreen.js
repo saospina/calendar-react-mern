@@ -9,10 +9,18 @@ import './login.css';
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
-    const [formLoginValues, handleLoginInputChange] = useForm();
+    const [formLoginValues, handleLoginInputChange] = useForm({
+        lEmail: "",
+        lPassword: ""
+    });
     const { lEmail, lPassword } = formLoginValues;
 
-    const [formRegisterValues, handleRegisterInputChange] = useForm();
+    const [formRegisterValues, handleRegisterInputChange] = useForm({
+        rName: '',
+        rEmail: "@gmail.com",
+        rPassword1: "",
+        rPassword2: ""
+    });
     const { rName, rEmail, rPassword1, rPassword2 } = formRegisterValues;
 
     const handleLogin = (e) => {
