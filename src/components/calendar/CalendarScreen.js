@@ -52,9 +52,10 @@ export const CalendarScreen = () => {
 
 
   const eventEstyleGetter = (event, start, end, isSelected) => {
-    
+    console.log(event.user._id, 'aaaaaa');
+
     const style = {
-      backgroundColor: (uid === event.user._id) ? '#007acc': '#ffbb99',
+      backgroundColor: (uid === event.user._id) ? '#007acc' : '#ffbb99',
       borderRadius: "0px",
       opacity: "block",
       color: "white",

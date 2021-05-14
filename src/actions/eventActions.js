@@ -27,7 +27,12 @@ export const eventDeleted = () => ({
 export const eventLoaded = (payload) => ({
     type: types.eventLoaded,
     payload
+});
+
+export const eventLogout = () => ({
+    type: types.eventLogout
 })
+
 
 
 

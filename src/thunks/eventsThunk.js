@@ -1,4 +1,4 @@
-import { eventAddNew, eventLoaded, eventUpdated } from "../actions/eventActions";
+import { eventAddNew, eventDeleted, eventLoaded, eventUpdated } from "../actions/eventActions";
 import { fetchWithToken } from "../services/eventsAPI";
 import { transformEvents } from '../helpers/transformEvents';
 import Swal from "sweetalert2";
@@ -15,7 +15,7 @@ export const eventStartAddNew = (event) => {
             if (isCreated) {
                 event.id = id;
                 event.user = {
-                    uid,
+                    _id: uid,
                     name
                 }
                 dispatch(eventAddNew(event))
@@ -47,8 +47,30 @@ export const eventStartUpdating = (event) => async (dispatch) => {
         const response = await fetchWithToken(`events/${event.id}`, event, 'PUT');
         const { isUpdated, msg } = response;
 
-        if (isUpdated) {  
+        if (isUpdated) {
             dispatch(eventUpdated(event));
+        } else {
+            Swal.fire('Error', msg, 'error')
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+};
+
+export const eventStartDeleting = () => async (dispatch, getState) => {
+
+    const { id } = getState().calendar.activeEvent;
+
+    try {
+
+        const response = await fetchWithToken(`events/${id}`, {}, 'DELETE');
+        const { isDeleted, msg } = response;
+
+        if (isDeleted) {
+            dispatch(eventDeleted());
         } else {
             Swal.fire('Error', msg, 'error')
         }

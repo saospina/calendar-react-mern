@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 
 import { checkingFinish, login, logout } from "../actions/authActions";
+import { eventLogout } from "../actions/eventActions";
 import { authLoginService, authRegisterService, getToken } from "../services/authAPI";
 
 
@@ -50,5 +51,6 @@ export const startChecking = () => async (dispatch) => {
 
 export const startLogout = () => async (dispatch) => {
     localStorage.clear();
+    dispatch(eventLogout());
     dispatch(logout());
 };
